@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>PanoPress</title>
+<script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+<script type="text/javascript">
+//tinyMCEPopup.requireLangPack();
+var pp_dialog = {
+	init : function() {},
+	insert : function() {
+		var  f = document.getElementById('f').value,
+			 w = document.getElementById('w').value,
+			 h = document.getElementById('h').value,
+			 t = document.getElementById('t').value,
+			 a = document.getElementById('a').value,
+			 p = document.getElementById('p').value
+			 b = 'default',
+			 bl = document.pp_form.b;
+		for(i = 0 ; i < bl.length; i++){
+			if(bl[i].checked)
+				b = bl[i].value;
+		}
+		if(f.length > 0){
+			var sc = '[pano file="' + f + '"';
+			if(w.length > 0)
+				sc += ' width="'    + w + '"';
+			if(h.length > 0)
+				sc += ' height="'   + h + '"';
+			if(t.length > 0)
+				sc += ' title="'    + t + '"';
+			if(a.length > 0)
+				sc += ' alt="'      + a + '"';
+			if(p.length > 0)
+				sc += ' preview="'  + p + '"';
+			if(b != 'default')
+				sc += ' panobox="'    + b + '"';
+			sc += "]";
+			// insert
+			tinyMCE.execCommand('mceInsertContent', false, sc);
+		}
+		tinyMCEPopup.close();
+	}
+};
+tinyMCEPopup.onInit.add(pp_dialog.init, pp_dialog);
+</script>
+</head>
+<body style="overflow:hidden;">
+<form name="pp_form" onsubmit="return pp_dialog.insert();" action="#">
+<div class="title">Embed Panorama</div>
+<div>
+<br />
+<table>
+<tr>
+<td>File</td>
+<td><input type="text" id="f" style="width:250px" /></td>
+</tr>
+<tr>
+<td></td>
+<td><i>All inputs below are optional</i></td>
+</tr>
+<td>Width</td>
+<td>
+<input type="text" id="w" style="width:40px" />&nbsp;&nbsp;&nbsp;Height&nbsp;&nbsp;&nbsp;<input type="text" id="h" style="width:40px" /></td>
+</tr>
+<tr>
+<td>Title</td>
+<td><input type="text" id="t" style="width:250px" /></td>
+</tr>
+<tr>
+<td>Alt. Text</td>
+<td><input type="text" id="a" style="width:250px" /></td>
+</tr>
+<tr>
+<td>Preview</td>
+<td><input type="text" id="p" style="width:250px" /></td>
+</tr>
+<td>Panobox</td>
+<td>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><input id="b-on" type="radio" name='b' value="on" /></td>
+<td><label for="b-on">On</label></td>
+<td>&nbsp;&nbsp;</td>
+<td><input id="b-off" type="radio" name='b'  value="off" /></td>
+<td><label for="b-off">Off</label></td>
+<td>&nbsp;&nbsp;</td>
+<td><input id="b-default" type="radio" name='b' value="default" checked /></td>
+<td><label for="b-default">Use Global Settings</label></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+</table>
+<br />
+</div>
+<div class="mceActionPanel">
+<div style="float: left">
+<!-- <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" /> -->
+<input type="button" id="cancel" name="cancel" value="Cancel" onclick="tinyMCEPopup.close();" />
+</div>
+<div style="float: right">
+<!-- <input type="submit" id="insert" name="insert" value="{#insert}" /> -->
+<input type="submit" id="insert" name="insert" value="Insert" />
+</div>
+</div>
+</form>
+</body>
+</html>
